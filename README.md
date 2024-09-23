@@ -1,82 +1,114 @@
-##  Système de Gestion RH
 
-### 1. **Contexte**
-Le projet vise à développer un système de gestion des ressources humaines (RH) basé sur le web, qui permettra de gérer efficacement les données des employés, le suivi de la présence et la gestion des salaires. Ce système vise à automatiser et à améliorer les processus RH internes tout en facilitant la prise de décision basée sur les données.
+# HR Management System
 
-### 2. **Objectifs**
-- Créer un système de gestion RH pour centraliser les données des employés.
-- Suivre les présences et absences des employés de manière précise.
-- Automatiser la gestion des salaires en intégrant des fonctions de traitement de la paie.
-- Améliorer l'efficacité du flux de travail RH et réduire les erreurs humaines.
+## Description
+The HR Management System is a web-based application designed to manage employee data, attendance tracking, and payroll processing. The backend is built using .NET Core, C#, ASP.NET MVC, Entity Framework, and Dapper for database interactions with SQL Server. The project follows the MVC architecture and includes unit tests to ensure reliable functionality.
 
-### 3. **Technologies Utilisées**
-- **Framework**: .NET Core 6.0
-- **Langage de Programmation**: C#
-- **Framework Frontend**: ASP.NET MVC
-- **ORM**: Entity Framework et Dapper
-- **Base de Données**: SQL Server
-- **Environnement de Développement**: Visual Studio Code
-- **Système de Gestion de Versions**: Git
+## Technologies Used
+- .NET Core
+- C#
+- ASP.NET MVC
+- Entity Framework Core
+- Dapper (for optimized database queries)
+- SQL Server
+- xUnit (for unit testing)
 
-### 4. **Fonctionnalités Fonctionnelles**
-#### 4.1 Gestion des Employés
-- Ajouter, modifier, supprimer et afficher des informations sur les employés.
-- Champs requis pour chaque employé : Nom, Prénom, Poste, Salaire, Date d'embauche, Département.
+## Architecture
+The project follows the MVC (Model-View-Controller) architectural pattern:
 
-#### 4.2 Suivi des Présences
-- Saisie quotidienne des présences et absences des employés.
-- Génération de rapports mensuels de présence.
-- Calcul des heures supplémentaires.
-
-#### 4.3 Gestion de la Paie
-- Calcul automatique des salaires mensuels en fonction des données de présence.
-- Prise en compte des primes, des heures supplémentaires et des retenues.
-- Génération de bulletins de paie pour chaque employé.
-
-#### 4.4 Gestion des Congés
-- Système de demande de congés par les employés.
-- Validation et suivi des congés par le service RH.
-
-### 5. **Fonctionnalités Non Fonctionnelles**
-#### 5.1 Sécurité
-- Authentification des utilisateurs avec différents niveaux d’accès (Admin, RH, Employés).
-- Gestion des rôles et des autorisations.
+- **Model**: Contains the data models that represent database entities such as Employee, Attendance, and Payroll. Entity Framework Core and Dapper are used for database interactions.
   
-#### 5.2 Performances
-- Système optimisé pour un grand nombre d'employés et un accès simultané de plusieurs utilisateurs.
+- **View**: Uses ASP.NET MVC's Razor views to present data to the user.
   
-#### 5.3 Accessibilité
-- Interface utilisateur intuitive et responsive, compatible avec les mobiles et les tablettes.
+- **Controller**: Manages HTTP requests, communicates with models, and returns appropriate views or API responses.
 
-#### 5.4 Fiabilité et Disponibilité
-- Sauvegarde automatique et régulier des données.
-- Disponibilité continue du système, avec un taux d'erreur minimal.
+### Data Layer:
+- **Entity Framework Core**: Manages database migrations and simplifies CRUD operations.
+- **Dapper**: Optimizes SQL queries for specific performance-critical operations.
 
-### 6. **Architecture**
-Le système sera basé sur une architecture **MVC** (Model-View-Controller). L’interaction avec la base de données se fera via **Entity Framework** et **Dapper**. Les modèles représenteront les données et la logique métier, les vues afficheront les informations, et les contrôleurs géreront les requêtes utilisateur et les réponses.
+### Unit Testing:
+- **xUnit**: Used for unit testing the backend services and controllers.
+- **Moq**: Utilized for mocking services and repositories in unit tests to ensure isolation of the system's components.
 
-### 7. **Base de Données**
-La base de données sera conçue avec **SQL Server** pour stocker les informations relatives aux employés, à leurs présences, aux salaires, et aux congés. La base sera structurée de manière à supporter une croissance future.
+## Getting Started
 
-#### Modèle de Données (Exemple)
-- **Table Employés**: Id, Nom, Prénom, Date d’embauche, Département, Salaire.
-- **Table Présences**: Id, EmployéId, Date, Statut (Présent/Absent).
-- **Table Paie**: Id, EmployéId, Mois, SalaireBrut, Retenues, SalaireNet.
+### Prerequisites
+- .NET SDK 6.0 or later
+- SQL Server
+- Visual Studio or VS Code
 
-### 8. **Gestion des Risques**
-- **Risque de Sécurité**: Gestion des accès via des rôles et des permissions bien définis.
-- **Risque de Perte de Données**: Mise en place de sauvegardes régulières.
-- **Risque de Non-Respect des Délais**: Utilisation de méthodologies agiles (SCRUM) pour suivre les étapes du projet.
+### Backend Setup
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/HRManagementSystem.git
+   ```
 
-### 9. **Planification**
-Le projet sera découpé en plusieurs sprints, chacun ayant un objectif précis :
-- **Sprint 1**: Création des modèles et de la base de données.
-- **Sprint 2**: Développement du module de gestion des employés.
-- **Sprint 3**: Développement du module de suivi des présences.
-- **Sprint 4**: Développement du module de gestion de la paie.
-- **Sprint 5**: Tests, déploiement et maintenance.
+2. Navigate to the project directory and restore the packages:
+   ```bash
+   cd HRManagementSystem
+   dotnet restore
+   ```
 
-### 10. **Responsabilités**
-- **Développeur Backend**: Développer les API et l’interaction avec la base de données via Entity Framework et Dapper.
-- **Développeur Frontend**: Développer l’interface utilisateur avec ASP.NET MVC.
-- **Responsable RH**: Valider les fonctionnalités spécifiques aux ressources humaines.
+3. Set up the database:
+   - Ensure SQL Server is running.
+   - Update the `appsettings.json` with your SQL Server connection string.
+   - Run the following command to apply migrations and seed the database:
+     ```bash
+     dotnet ef database update
+     ```
+
+4. Run the backend server:
+   ```bash
+   dotnet run
+   ```
+
+### Unit Tests Setup
+1. Navigate to the test project directory:
+   ```bash
+   cd HRManagementSystem.Tests
+   ```
+
+2. Run the unit tests:
+   ```bash
+   dotnet test
+   ```
+
+## Project Structure
+The project follows a modular folder structure:
+
+- **/Controllers**: Contains the MVC controllers that handle HTTP requests.
+- **/Models**: Contains the entity models that represent database tables.
+- **/Views**: Razor views that handle UI rendering.
+- **/Data**: Contains the `DbContext` class and Dapper repositories for database operations.
+- **/Services**: Business logic services (e.g., EmployeeService).
+- **/Tests**: Unit tests for services and controllers using xUnit and Moq.
+- **/wwwroot**: Static files for the web app (CSS, JS, images).
+
+## Usage
+After the backend is running, users can:
+- View and manage employee data.
+- Track attendance.
+- Process payroll.
+
+You can interact with the system through the web interface or API endpoints.
+
+## Unit Testing
+
+Unit tests are implemented using the **xUnit** testing framework, and **Moq** is used to mock dependencies to ensure isolation of the system's components.
+
+To run unit tests:
+```bash
+dotnet test
+```
+
+Tests cover:
+- Controller logic (e.g., EmployeeController)
+- Business services (e.g., EmployeeService)
+
+## Contributing
+Contributions are welcome! Feel free to submit a pull request or open an issue.
+
+## License
+This project is licensed under the MIT License.
+```
+
