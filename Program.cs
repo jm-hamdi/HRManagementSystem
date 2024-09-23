@@ -1,4 +1,7 @@
+using HRManagementSystem.Services;
 using Microsoft.EntityFrameworkCore;
+// using HRManagementSystem.Services; 
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,10 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<HRContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
